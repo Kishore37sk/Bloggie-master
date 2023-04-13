@@ -1,0 +1,30 @@
+<%= form_with model: [ @topic, @post,@post.ratings.build] do |form| %>
+  <div class="field form-group">
+    <%= form.radio_button :rate , 1 %>
+    <%= form.label :one , '⭐1', :value=> 1 %>
+
+    <%= form.radio_button :rate , 2 %>
+    <%= form.label :two , '⭐2', :value=> 2 %>
+
+    <%= form.radio_button :rate , 3 %>
+    <%= form.label :three , '⭐3', :value=> 3 %>
+
+    <%= form.radio_button :rate , 4 %>
+    <%= form.label :four , "⭐4", :value=> 4 %>
+
+    <%= form.radio_button :rate , 5 %>
+    <%= form.label :five , "⭐5", :value=> 5 %>
+
+    <%= form.submit "create rating", class:"btn btn-primary btn-sm" %>
+  </div>
+<% end %>
+<br/>
+<% (1..5).each do |rate| %>
+  <div>
+    <% if @rating[rate].present? %>
+      <ul>
+        <li><strong>  <%= rate %> ⭐ (<%= @rating[rate] %>)</strong></li>
+      </ul>
+    <% end %>
+  </div>
+<% end %>

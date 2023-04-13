@@ -1,0 +1,3 @@
+module UserCommentRatingsHelper
+end
+

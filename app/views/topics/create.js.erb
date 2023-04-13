@@ -1,0 +1,6 @@
+<% if @topic.errors.any? %>
+alert('Invalid Details');
+<% else %>
+$('#topicsTable').append("<%= escape_javascript render('topic_row', topic: @topic)%>");
+$(".close-modal").click();
+<% end %>

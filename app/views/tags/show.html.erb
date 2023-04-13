@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<table>
+  <thead>
+  <th>Tag Name </th>
+  <th> Post Name</th>
+  <th> Topic Name</th>
+  <th> content</th>
+  </thead>
+  <tbody>
+  <td><%= @tag.tagname %></td>
+  <% @tag.posts.each do |post| %>
+  <td><%= post.name %></td>
+    <td><%= post.topic.name %></td>
+    <td><p><%= post.body %></p></td>
+  </tbody>
+</table>
+<p>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_tag_path(@tag) %> |
+<%= link_to 'Back', tags_path %>

@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg me-auto bg-dark top" data-bs-theme="dark">
+  <div class="container-fluid">
+    <div class="grid gap-3">
+      <div class="p-2 g-col-6">
+        <button type="button" class="btn btn-primary position-relative">Topic App
+        </button>
+      </div>
+    </div>
+    <div class="grid gap-3">
+      <div class="p-2 g-col-6">
+        <button type="button" class="btn btn-primary position-relative">Posts
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    <%= Post.count %>
+  </span>
+        </button>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <% if user_signed_in? %>
+
+          <li class="nav-item wh">
+            Logged in as<br/>
+            <%= current_user.email %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Show profile', current_user, class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to "Home", topics_path,class: "nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Add Topic", new_topic_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Show All Posts", posts_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Out", destroy_user_session_path,method: :delete, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Edit Profile", edit_user_path(current_user),  data: { bs_toggle: "modal", bs_target: "#editProfileModal" }, remote: true, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="editProfileForm"></div>
+    </div>
+  </div>
+</div>

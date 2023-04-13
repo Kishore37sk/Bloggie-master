@@ -1,0 +1,28 @@
+
+  <% @post.comments.includes([:user]).each do |comment| %>
+    <br>
+    <strong><small><mark><%= comment.user.email  if comment.user.present? %> commented </mark></small></strong><br/><br/>
+    "<%= comment.body %>"<br/>
+    <strong>
+      <small> Average Rating
+        <%= comment.ucr_avg %>
+      </small>
+    </strong> <br/><br/>
+    <% if current_user != comment.user %>
+      <%= form_for [comment.user_comment_ratings.build], url: topic_post_comment_user_comment_ratings_path(@topic,@post,comment_id: comment.id) do |f|%>
+        <div>
+          <%= f.collection_radio_buttons :star, (1..5).reverse_each.map { |n| [n, "#{n}⭐"] }, :first, :last do |b| %>
+            <%= b.radio_button %>
+            <%= b.label(style: 'display: inline') %>
+          <% end %>
+          <%= f.submit "Rate comment", class:"btn btn-primary btn-sm"%>
+          <br/><br/>
+        </div>
+      <% end %>
+    <% end %>
+    <%= link_to "see ratings",topic_post_comment_user_comment_ratings_path(@topic,@post,comment_id: comment.id), class:"btn btn-success btn-sm" %>
+      <% if can? :destroy, comment %>
+        <%= link_to "Destroy" , topic_post_comment_path(@post.topic,@post,comment.id) ,method: :delete , class: "btn btn-primary btn-sm", remote: true%>
+      <% end %>
+    <br>
+  <% end %>

@@ -1,0 +1,45 @@
+<%= form_with(model: [@topic,post], local: false) do |form| %>
+  <div class="modal-body">
+  <% if post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.text_field :name, class:"form-control" ,placeholder:"name" %>
+    </div><br/><br/>
+    <div class="field">
+      <%= form.label :"upload image" %><br><br>
+      <%= form.file_field :image, class:"form-control" %>
+    </div><br/><br/>
+    <div class="field">
+      <%= form.text_area :body,class:"form-control",placeholder:"content" %>
+    </div><br/><br/>
+    <%= form.fields_for :tags, @post.tags.build do |tag| %>
+      <%= tag.text_field :tagname, class: 'form-control' ,placeholder: "new tag"%>
+    <% end %>
+    <br><br>
+    <% if Tag.any? %>
+      <%= form.label 'Choose tags' %><br><br>
+      <%= form.select :tag_ids, Tag.all.collect { |tag| [tag.tagname, tag.id] }, { }, multiple: true, class:"form-control" %>
+    <% end %>
+    <div class="field">
+      <%= form.text_field :user_id, id: :post_user_id, value: current_user.id, type: :hidden %>
+    </div>
+    <br><br>
+  </div>
+
+  <div class="modal-footer">
+    <div class="actions">
+      <%= form.submit "submit" , class: "btn btn-success btn-sm" %><br>
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm close-modal" data-bs-dismiss="modal">Close</button>
+  </div>
+<% end %>

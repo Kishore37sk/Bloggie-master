@@ -1,0 +1,14 @@
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+  <h5 class="card-header">
+    <strong><%= @topic.name %></strong>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Description:</strong>
+      <i><%= @topic.description %></i>
+    </p>
+    <%= link_to 'Edit', edit_topic_path(@topic), class:"btn btn-secondary btn-sm" %> |
+    <%= link_to 'Back', topics_path, class:"btn btn-dark btn-sm" %>
+  </div>
+</div>
+

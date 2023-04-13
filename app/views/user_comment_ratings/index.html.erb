@@ -1,0 +1,18 @@
+
+<table class="table table-striped table-bordered table-warning">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <% @user_comment_ratings.includes([:user]).each do |user_comment_rating| %>
+  <tbody>
+    <tr>
+      <td><%= user_comment_rating.user.email if user_comment_rating.user.present? %></td>
+      <td><% (user_comment_rating.star).to_i.times do %>⭐<% end %></td>
+    </tr>
+  </tbody>
+    <% end %>
+</table>
+

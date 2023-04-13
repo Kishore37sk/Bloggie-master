@@ -1,0 +1,57 @@
+<style>
+</style>
+  <% if @post.users.include?(current_user) %>
+    <span class="badge bg-primary">Read</span>
+<% end %>
+  <div class="card border-primary rounded-2 shadow mt-5" style="max-width: 40rem;">
+  <h5 class="card-header">
+    <mark>
+      Created By :
+      <%= @post.user.email if @post.user.present?%><br/>
+    </mark>
+  </h5>
+  <div class="card-body">
+    <div class="card-title"><%= @post.name %><br><br>
+    <p class="card-text">
+        <% if @post.image.attached? %><%= image_tag(@post.image, size: '100x100', style: 'border-radius: 50%') %><% end %>
+        "<%= @post.body %>"<br><br>
+        <small>
+          <% @post.tags.each do |tag| %>
+            <%= link_to tag.tagname, tags_path ,class:"btn btn-success btn-sm"%>
+          <% end %>
+        </small><br><br>
+        <small><i><strong>Average Rating <%= @post.rating_average %></strong><br/>Based On <%= @post.ratings_count %> ratings</i></small>
+        <br><br><% if can? :update, @post %>
+          <%= link_to 'Edit this', edit_topic_post_path(@topic,@post) , class:"btn btn-success btn-sm"%>
+        <% end %>
+    </p>
+  </div>
+</div>
+</div>
+
+<div class="card border-primary rounded-2 shadow mt-5" style="max-width: 30rem;">
+  <h5 class="card-header"><strong>Ratings </strong></h5>
+      <div class="card-body">
+        <%= render 'ratings/form' %>
+      </div>
+</div>
+
+<div class="card border-primary rounded-2 shadow mt-5" style="max-width: 40rem;">
+  <div class="card-header">
+    <div class="card-title">
+      <strong><i>Add Comment</i></strong>
+      <div class="card-body">
+        <%= render 'comments/form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card border-primary rounded-3 shadow mt-5" style="max-width: 40rem;">
+  <div class="card-header">
+      <strong><i>Comments(<%= @post.comments_count %>)</i></strong>
+      <div class="card-body">
+        <%= render 'comments/comment' %>
+      </div>
+  </div>
+</div>

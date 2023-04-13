@@ -1,0 +1,13 @@
+
+<%= form_with(model: [@topic,@post,@post.comments.build ]) do |form| %>
+
+  <div>
+    <%= form.text_area :body , class:"form-control", placeholder:" Comment here"%>
+  </div>
+  <p>
+    <% if user_signed_in? %>
+    <%= form.text_field :user_id, value: current_user.id, type: :hidden %>
+    <% end %>
+    <%= form.submit "create comment", class:"btn btn-primary btn-sm"%>
+  </p>
+<% end %>

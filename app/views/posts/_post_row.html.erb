@@ -1,0 +1,37 @@
+<tr id="<%=post.id %>">
+  <td><%= post.name %></td>
+  <td><%= post.body %></td>
+  <td><%= post.user.email if post.user.present? %></td>
+  <td>
+    <% if post.users.include?(current_user) %>
+      <div class="gr">Read</div>
+    <% else %>
+      Unread
+    <% end %>
+  </td>
+  <% if @topic.present? %>
+    <td><%= link_to "show", post_read_topic_post_path(post.topic_id,post), class: "btn btn-primary btn-sm",method: :post, remote: true %></td>
+    <td>
+      <% if can? :update, post %>
+        <%= link_to 'Edit', edit_topic_post_path(@topic,post), class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </td>
+    <td>
+      <% if can? :destroy, post %>
+        <%= link_to 'Destroy', topic_post_path(@topic,post), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-sm", remote: true %>
+      <% end %>
+    </td>
+  <% else %>
+    <td><%= link_to "show", post_read_topic_post_path(post.topic_id,post), class: "btn btn-primary btn-sm",method: :post, remote: true %></td>
+    <td>
+      <% if can? :update, post %>
+        <%= link_to 'Edit', edit_topic_post_path(post.topic,post) , class: "btn btn-primary btn-sm"%>
+      <% end %>
+    </td>
+    <td>
+      <% if can? :destroy, post %>
+        <%= link_to 'Destroy', topic_post_path(post.topic,post), method: :delete, data: { confirm: 'Are you sure?', class: "btn btn-primary btn-sm" }, remote: true %>
+      <% end %>
+    </td>
+  <% end %>
+</tr>

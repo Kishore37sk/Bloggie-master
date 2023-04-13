@@ -1,0 +1,6 @@
+<% if @topic.errors.any? %>
+alert('Invalid Details');
+<% else %>
+$("#postsTable").append("<%= escape_javascript render('post_row', post: @post)%>");
+$(".close-modal").click();
+<% end %>
